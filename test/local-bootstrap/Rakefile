@@ -1,0 +1,50 @@
+require 'bundler/setup'
+require 'fileutils'
+require 'chef-workflow/tasks/tlc/deps'
+
+desc "resolve application cookbook with all its dependencies"
+task :resolve_deps, [:app_cookbook] do |t, args|
+  Rake::Task["tlc:deps:resolve_app_cookbook"].invoke(args[:app_cookbook])
+end
+
+desc "bring up the vagrant \"VM\" as configured in the Vagrantfile"
+task :up, [:vm_name] do |t, args|
+  vm_name = get_required_args(args, :vm_name)
+  sh "vagrant up #{vm_name}"
+end
+
+desc "provision the vagrant \"VM\" with the provisioners as defined in the Vagrantfile"
+task :provision, [:vm_name] do |t, args|
+  vm_name = get_required_args(args, :vm_name)
+  sh "vagrant provision #{vm_name}"
+end
+
+desc "destroy the vagrant \"VM\" with the given name"
+task :destroy, [:vm_name] do |t, args|
+  vm_name = get_required_args(args, :vm_name)
+  sh "vagrant destroy #{vm_name} -f"
+end
+
+desc "ssh into the vagrant \"VM\" with the given name"
+task :ssh, [:vm_name] do |t, args|
+  vm_name = get_required_args(args, :vm_name)
+  sh "vagrant ssh #{vm_name}"
+end
+
+desc "show status of all vagrant \"VMs\" defined in the Vagrantfile"
+task :status do
+  sh "vagrant status"
+end
+
+
+#
+# helper methods below
+#
+def get_required_args(args, *param_keys)
+  param_values = Array.new
+  param_keys.each do |param_key|
+    fail "parameter #{param_key.to_sym} is required" unless args[param_key.to_sym]
+    param_values << args[param_key.to_sym]
+  end
+  param_values.size == 1 ? param_values[0] : param_values
+end

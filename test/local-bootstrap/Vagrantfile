@@ -1,0 +1,31 @@
+#
+# Vagrantfile for testing
+#
+Vagrant::Config.run do |config|
+
+  # default base box for all VMs
+  config.vm.box = "opscode-ubuntu-12.04"
+  config.vm.box_url = "https://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_chef-10.18.2.box"
+
+  # sample-app
+  config.vm.define :'sample-app' do | sample_app_config |
+    sample_app_config.vm.customize ["modifyvm", :id, 
+      "--memory", "384",
+      "--name", "sample-app.local"
+    ] 
+    sample_app_config.vm.host_name = "sample-app.local"
+    sample_app_config.vm.network :hostonly, "33.33.40.10"
+
+    sample_app_config.vm.provision :chef_solo do |chef|
+      chef.cookbooks_path = [ './cookbooks/sample-app-0.1.0' ]
+      chef.add_recipe "sample-app"
+      chef.json = {
+        :sample_app => {
+          :words_of_wisdom => 'AWESOMENESS - When i feel sad, i stop being sad and be awesome instead.'
+        }
+      }
+    end
+  end
+
+end
+

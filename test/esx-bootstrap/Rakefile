@@ -1,0 +1,64 @@
+require 'bundler/setup'
+require 'fileutils'
+require 'chef-workflow/tasks/tlc/deps'
+require 'chef-tlc-workflow/helpers'
+
+desc "resolve application cookbook with all its dependencies"
+task :resolve_deps, [:app_cookbook] do |t, args|
+  Rake::Task["tlc:deps:resolve_app_cookbook"].invoke(args[:app_cookbook])
+end
+
+desc "bootstrap a server with Chef, does not provision (will ask for password if no key provided)"
+task :bootstrap, [:host, :user, :ssh_key] do |t, args|
+  host, user = get_required_args(args, :host, :user)
+  sh "knife solo prepare #{user}@#{host} #{ssh_key_cmdline(args)} --bootstrap-version 10.18.2-1 --no-librarian -V"
+end
+
+desc "provision a server with data from `nodes/<host>.json` (will ask for password if no key provided)"
+task :provision, [:app_cookbook, :host, :user, :ssh_key] do |t, args|
+  app_cookbook, host, user = get_required_args(args, :app_cookbook, :host, :user)
+  name, version = ChefTLCWorkflow::Helpers::parse_name_and_version(args[:app_cookbook])
+  with_app "#{name}-#{version}" do
+    sh "knife solo cook #{user}@#{host} #{ssh_key_cmdline(args)} --no-chef-check --no-librarian -V"
+  end
+end
+
+desc "remove Chef-solo cookbook traces from the server (will ask for password if no key provided)"
+task :cleanup, [:host, :user, :ssh_key] do |t, args|
+  host, user = get_required_args(args, :host, :user)
+  sh "knife solo clean #{user}@#{host} #{ssh_key_cmdline(args)} -V"
+end
+
+
+#
+# helper methods below
+#
+def get_required_args(args, *param_keys)
+  param_values = Array.new
+  param_keys.each do |param_key|
+    fail "parameter #{param_key.to_sym} is required" unless args[param_key.to_sym]
+    param_values << args[param_key.to_sym]
+  end
+  param_values
+end
+
+def ssh_key_cmdline(args)
+  args[:ssh_key] ? "-i #{args[:ssh_key]}" : ""
+end
+
+#
+# rewrites solo.rb with the cookbook_path adapted 
+# for the given app cookbook while the block executes
+#
+def with_app(app_cookbook)
+  File.open("solo.rb", 'w') {|f| f.write(<<-EOF) }
+base = File.expand_path('..', __FILE__)
+data_bag_path             base + '/data_bags'
+encrypted_data_bag_secret base + '/data_bag_key'
+role_path                 base + '/roles'
+cookbook_path             base + '/cookbooks/#{app_cookbook}'
+EOF
+  yield
+ensure
+  FileUtils.rm_rf "solo.rb"
+end

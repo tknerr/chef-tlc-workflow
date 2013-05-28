@@ -1,0 +1,12 @@
+
+- name: "sample-app"
+  version: "0.1.0"
+  path: "../sample-app"
+  # git: "https://github.com/tknerr/sample-app-tlc.git"
+  # ref: "v0.1.0"
+
+- name: "sample-app"
+  version: "0.2.0"
+  path: "../sample-app"
+  # git: "https://github.com/tknerr/sample-app-tlc.git"
+  # ref: "v0.2.0"

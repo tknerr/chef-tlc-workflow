@@ -1,0 +1,15 @@
+site "http://community.opscode.com/api/v1"
+
+require 'chef-tlc-workflow/helpers'
+
+#
+# read dependencies from metadata
+#
+ChefTLCWorkflow::Helpers::from_metadata.each do |cb_name, cb_version|
+  cookbook cb_name, cb_version
+end
+
+#
+# resolve self for testing with vagrant
+#
+cookbook "sample-app", :path => '.'
