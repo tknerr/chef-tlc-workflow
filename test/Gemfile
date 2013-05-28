@@ -3,5 +3,5 @@ source :rubygems
 source 'https://gems.gemfury.com/hUe8s8nSyzxs7JMMSZV8/' # vagrant-1.0.5.1
 source 'https://gems.gemfury.com/psBbdHx94zqZrvxpiVmm/' # librarian-0.0.26.2
 
-gem "chef-tlc-workflow", "0.1.0"
-  #:path => "#{File.dirname(__FILE__)}/../../chef-tlc-workflow"
+gem "chef-tlc-workflow", "0.2.0.dev",
+  :path => "#{File.dirname(__FILE__)}/../../chef-tlc-workflow"
