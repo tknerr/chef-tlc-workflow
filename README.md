@@ -76,8 +76,7 @@ source :rubygems
 source 'https://gems.gemfury.com/hUe8s8nSyzxs7JMMSZV8/' # vagrant-1.0.5.1
 source 'https://gems.gemfury.com/psBbdHx94zqZrvxpiVmm/' # librarian-0.0.26.2
 
-gem "chef-tlc-workflow", "0.1.0",
-  :git => 'https://github.com/tknerr/chef-tlc-workflow.git', :ref => 'v0.1.0'
+gem "chef-tlc-workflow", "0.1.0"
 ```
 
 This brings in all the transitive gem dependencies as defined in the `chef-tlc-workflow.gemspec`, e.g. vagrant, librarian, chef, mccloud etc...
