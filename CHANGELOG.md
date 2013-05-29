@@ -1,4 +1,8 @@
 
+# [0.1.3] from 05/30/2013
+
+ * relax version constraint on vagrant gem so that both 1.0.5 and 1.0.5.1 ([windows fixes](https://github.com/mitchellh/vagrant/issues/247)) can be used 
+
 # [0.1.2] from 05/29/2013
 
  * added this CHANGELOG.md :-)
