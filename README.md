@@ -9,6 +9,14 @@ Other than the templates it provides helper methods to use the dependencies defi
 Finally, it ensures a consistent gem set by declaring all the gems we use in our workflow in its own gemspec, i.e. `chef-tlc-workflow` is the only gem you need to depend on - everything else (like vagrant, mcloud, etc..) comes in as transitive dependencies.
 
 
+## Terminology
+
+* **infrastructure** is a Chef-Repo like structure which describes the nodes that are part of it and which services are to be installed on these nodes via *top-level cookbooks*
+* **deployment environments** are separate subdirectories within an *infrastructure* which represent the different environments (e.g. cloud, local or managed server) these services are deployed to
+* **top-level cookbooks** are the top-level cookbooks that fully configure a node by combining a set of *dependent cookbooks*, configuring them appropriately and locking them at a specific version.
+* **dependent cookbooks** are the finer-grained, reusable and flexible cookbooks that you typically leverage for building high-level services in terms of *top-level cookbooks*
+
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -22,14 +30,6 @@ And then execute:
 Or install it yourself as:
 
     $ gem install chef-tlc-workflow
-
-
-## Terminology
-
-* **infrastructure:** is a Chef-Repo like structure which describes the nodes that are part of it and which services are to be installed on these nodes via *top-level cookbooks*
-* **deployment environments** are separate subdirectories within an *infrastructure* which represent the different environments (e.g. cloud, local or managed server) these services are deployed to
-* **top-level cookbooks** are the top-level cookbooks that fully configure a node by combining a set of *dependent cookbooks*, configuring them appropriately and locking them at a specific version.
-* **dependent cookbooks** are the finer-grained, reusable and flexible cookbooks that you typically leverage for building high-level services in terms of *top-level cookbooks*
 
 
 ## Usage
