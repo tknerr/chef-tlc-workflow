@@ -1,12 +1,13 @@
-# TLC Chef Workflow
+# Chef TLC ("Top-Level Cookbooks") Workflow
 
-The `chef-tlc-workflow` aims to make our workflow for developing with Chef more explict.
+`chef-tlc-workflow` supports an opiniated workflow for working with Chef. It is based on the strict distinction of top-level vs. dependent cookbooks (see below) and it's currently focussed on chef-solo only.
 
 First of all, it provides templates for three different deployment environments (esx, ec2 and local). The templates contain among others a `Rakefile` for interacting with the deployment environment as well as a description of the nodes in these environments.
 
 Other than the templates it provides helper methods to use the dependencies defined in `metadata.rb` from within [librarian](https://github.com/applicationsonline/librarian) `Cheffile`s. This ensures consistency between the dependencies specified in metadata and resolved via librarian. 
 
 Finally, it ensures a consistent gem set by declaring all the gems we use in our workflow in its own gemspec, i.e. `chef-tlc-workflow` is the only gem you need to depend on - everything else (like vagrant, mcloud, etc..) comes in as transitive dependencies.
+
 
 ## Installation
 
@@ -23,13 +24,21 @@ Or install it yourself as:
     $ gem install chef-tlc-workflow
 
 
+## Terminology
+
+* *infrastructure:* is a Chef-Repo like structure which describes the nodes that are part of it and which services are to be installed on these nodes via *top-level cookbooks*
+* *deployment environment*s are separate subdirectories within an *infrastructure* which represent the different environments (e.g. cloud, local or managed server) these services are deployed to
+* *top-level cookbooks* are the top-level cookbooks that fully configure a node by combining a set of *dependent cookbooks*, configuring them appropriately and locking them at a specific version.
+* *dependent cookbooks* are the finer-grained, reusable and flexible cookbooks that you typically leverage for building high-level services in terms of *top-level cookbooks*
+
+
 ## Usage
 
 See valid usages below.
 
 ### Templates for Deployment Environments
 
-As of TLC Project Infrastructure v1 we support three different deployment environments:
+Currently three different deployment environments are supported:
 
  * `esx` - VMs on our ESX infrastructure where we have ssh access but no control over the VMs (provisioned via [knife-solo](http://matschaffer.github.com/knife-solo/)) 
  * `ec2` - ec2 instances in the amazon cloud (managed and provisioned via [mccloud](https://github.com/jedi4ever/mccloud))
@@ -72,11 +81,7 @@ It references all gems we need for our Chef workflow, this means that your `Gemf
 ```
 source :rubygems
 
-# additional sources for patched gems
-source 'https://gems.gemfury.com/hUe8s8nSyzxs7JMMSZV8/' # vagrant-1.0.5.1
-source 'https://gems.gemfury.com/psBbdHx94zqZrvxpiVmm/' # librarian-0.0.26.2
-
-gem "chef-tlc-workflow", "0.1.0"
+gem "chef-tlc-workflow", "0.1.3"
 ```
 
 This brings in all the transitive gem dependencies as defined in the `chef-tlc-workflow.gemspec`, e.g. vagrant, librarian, chef, mccloud etc...

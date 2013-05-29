@@ -8,9 +8,9 @@ Gem::Specification.new do |gem|
   gem.version       = ChefTLCWorkflow::VERSION
   gem.authors       = ["Torben Knerr"]
   gem.email         = ["tkn@zuehlke.com"]
-  gem.description   = %q{makes our workflow for developing with Chef explict by adding a set of Rake tasks embodying the workflow}
-  gem.summary       = %q{makes our workflow for developing with Chef explict by adding a set of Rake tasks embodying the workflow}
-  gem.homepage      = ""
+  gem.description   = %q{Chef Workflow based on the idea of Top-Level Cookbooks }
+  gem.summary       = %q{Chef Workflow based on the idea of Top-Level Cookbooks }
+  gem.homepage      = "https://github.com/tknerr/chef-tlc-workflow"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
