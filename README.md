@@ -1,4 +1,4 @@
-# Chef TLC ("Top-Level Cookbooks") Workflow
+# Chef "Top-Level Cookbooks" Workflow
 
 `chef-tlc-workflow` supports an opiniated workflow for working with Chef. It is based on the strict distinction of top-level vs. dependent cookbooks (see below) and it's currently focussed on chef-solo only.
 
@@ -26,15 +26,13 @@ Or install it yourself as:
 
 ## Terminology
 
-* *infrastructure:* is a Chef-Repo like structure which describes the nodes that are part of it and which services are to be installed on these nodes via *top-level cookbooks*
-* *deployment environment*s are separate subdirectories within an *infrastructure* which represent the different environments (e.g. cloud, local or managed server) these services are deployed to
-* *top-level cookbooks* are the top-level cookbooks that fully configure a node by combining a set of *dependent cookbooks*, configuring them appropriately and locking them at a specific version.
-* *dependent cookbooks* are the finer-grained, reusable and flexible cookbooks that you typically leverage for building high-level services in terms of *top-level cookbooks*
+* **infrastructure:** is a Chef-Repo like structure which describes the nodes that are part of it and which services are to be installed on these nodes via *top-level cookbooks*
+* **deployment environments** are separate subdirectories within an *infrastructure* which represent the different environments (e.g. cloud, local or managed server) these services are deployed to
+* **top-level cookbooks** are the top-level cookbooks that fully configure a node by combining a set of *dependent cookbooks*, configuring them appropriately and locking them at a specific version.
+* **dependent cookbooks** are the finer-grained, reusable and flexible cookbooks that you typically leverage for building high-level services in terms of *top-level cookbooks*
 
 
 ## Usage
-
-See valid usages below.
 
 ### Templates for Deployment Environments
 
@@ -56,29 +54,33 @@ Since librarian does not support reading the cookbook dependencies from `metadat
 
 In the trivial case you can use it in your cookbook project's `Cheffile` like so:
 
-    require 'chef-tlc-workflow/helpers'
+```ruby
+require 'chef-tlc-workflow/helpers'
 
-    ChefTLCWorkflow::Helpers::from_metadata.each do |cb_name, cb_version|
-      cookbook cb_name, cb_version
-    end
+ChefTLCWorkflow::Helpers::from_metadata.each do |cb_name, cb_version|
+  cookbook cb_name, cb_version
+end
+```
 
 If some of the cookbooks defined in metadata.rb are not available from the community site, you can define your overrides like so: 
 
-    ...
-    @overrides = {
-      'tlc-base' => { :git => 'https://github.com/tknerr/cookbook-tlc-base.git', :ref => 'master' },
-    }
+```ruby
+...
+@overrides = {
+  'tlc-base' => { :git => 'https://github.com/tknerr/cookbook-tlc-base.git', :ref => 'master' },
+}
 
-    ChefTLCWorkflow::Helpers::from_metadata.each do |cb_name, cb_version|
-      cookbook cb_name, cb_version, @overrides[cb_name]
-    end
+ChefTLCWorkflow::Helpers::from_metadata.each do |cb_name, cb_version|
+  cookbook cb_name, cb_version, @overrides[cb_name]
+end
+```
 
 
 ### Single Gemfile Dependency
 
 It references all gems we need for our Chef workflow, this means that your `Gemfile` basically looks like this:
 
-```
+```ruby
 source :rubygems
 
 gem "chef-tlc-workflow", "0.1.3"
