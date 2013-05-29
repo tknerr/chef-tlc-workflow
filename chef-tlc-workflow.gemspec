@@ -31,7 +31,7 @@ Gem::Specification.new do |gem|
   # for interaction with nodes in local/esx/ec2 environments
   gem.add_dependency 'vagrant', '1.0.5.1'
   gem.add_dependency 'knife-solo', '0.3.0.pre2'
-  gem.add_dependency 'mccloud', '0.0.18'
+  gem.add_dependency 'mccloud', '0.0.19'
   
   # testing related
   gem.add_dependency 'foodcritic', '1.7.0'
