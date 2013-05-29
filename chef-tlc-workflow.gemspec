@@ -21,7 +21,7 @@ Gem::Specification.new do |gem|
   #
   gem.add_dependency 'chef-workflow-tasklib', '0.2.2'
   gem.add_dependency 'chef', '10.18.2'
-  gem.add_dependency 'librarian', '0.0.26.2'
+  gem.add_dependency 'librarian-chef', '0.0.1'
 
   #
   # further dependencies that are not `require`d here but we pull in for convenience
@@ -30,7 +30,7 @@ Gem::Specification.new do |gem|
 
   # for interaction with nodes in local/esx/ec2 environments
   gem.add_dependency 'vagrant', '1.0.5.1'
-  gem.add_dependency 'knife-solo', '0.3.0.pre2'
+  gem.add_dependency 'knife-solo', '0.3.0.pre4'
   gem.add_dependency 'mccloud', '0.0.19'
   
   # testing related
