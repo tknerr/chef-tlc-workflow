@@ -47,18 +47,12 @@ def ssh_key_cmdline(args)
 end
 
 #
-# rewrites solo.rb with the cookbook_path adapted 
-# for the given app cookbook while the block executes
+# sets the 'CURRENT_APP_COOKBOOK' env var while the block executes, which is used in
+# `.chef/knife.rb` for correctly setting the `cookbook_path` for the given app cookbook 
 #
 def with_app(app_cookbook)
-  File.open("solo.rb", 'w') {|f| f.write(<<-EOF) }
-base = File.expand_path('..', __FILE__)
-data_bag_path             base + '/data_bags'
-encrypted_data_bag_secret base + '/data_bag_key'
-role_path                 base + '/roles'
-cookbook_path             base + '/cookbooks/#{app_cookbook}'
-EOF
+  ENV['CURRENT_APP_COOKBOOK'] = app_cookbook
   yield
 ensure
-  FileUtils.rm_rf "solo.rb"
+  ENV['CURRENT_APP_COOKBOOK'] = ""
 end

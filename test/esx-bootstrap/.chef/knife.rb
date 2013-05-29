@@ -1,7 +1,10 @@
 # 
-# configure kitchen path on the server allowing us to adapt 
-# the cookbook_path in `solo.rb`
+# knife configuration that is honored by knife-solo, see 
+# https://github.com/matschaffer/knife-solo/wiki/Upgrading-to-0.3.0 
 #
-# see https://github.com/matschaffer/knife-solo/issues/199#issuecomment-13820473
-#
-knife[:solo_path] = '/tmp/chef-solo'
+log_level                 :info
+log_location              STDOUT
+data_bag_path             "data_bags"
+encrypted_data_bag_secret "data_bag_key"
+role_path                 "roles"
+cookbook_path             "cookbooks/#{ENV['CURRENT_APP_COOKBOOK']}"
