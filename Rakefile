@@ -105,6 +105,6 @@ def run_cmd_local(command)
 end
 
 def run_cmd(command, cwd)
-  fail "need #{cwd}/Gemfile for a clean environment" unless File.exist? "#{cwd}/Gemfile"
+  fail "need #{cwd}/../Gemfile for a clean environment" unless File.exist? "#{cwd}/../Gemfile"
   sh "cd #{cwd} && bundle exec #{command}"
 end
