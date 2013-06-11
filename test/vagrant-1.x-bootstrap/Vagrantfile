@@ -95,26 +95,4 @@ Vagrant::configure("2") do |config|
     end
   end
 
-=begin
-  #
-  # Sample VM with multiple providers
-  #
-  config.vm.define :"sample-app2" do | sample_app_config |
-
-    configure_provider(:virtualbox, sample_app_config, vbox_config("sample-app", "33.33.40.10"))
-    configure_provider(:aws, sample_app_config, aws_config("m1.small"))
-    configure_provider(:managed, sample_app_config, esx_config("33.33.77.10"))  
-    
-    sample_app_config.vm.provision :chef_solo do |chef|
-      chef.cookbooks_path = [ './cookbooks/sample-app-0.1.0' ]
-      chef.add_recipe "sample-app"
-      chef.json = {
-        :sample_app => {
-          :words_of_wisdom => "Vagrant multiprovider Rocks!"
-        }
-      }
-    end
-  end
-=end
-
 end
