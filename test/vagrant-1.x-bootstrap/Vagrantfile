@@ -31,7 +31,7 @@ def aws_config(instance_type)
     override.vm.box_url = "https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box"
     # override ssh user and private key
     override.ssh.username = "ubuntu"
-    override.ssh.private_key_path = "#{ENV['HOME']}/.ssh/mccloud_rsa"
+    override.ssh.private_key_path = "./ssh_key/chef-tlc-insecure-key"
     
     # aws specific settings
     aws.access_key_id = ENV['AWS_ACCESS_KEY']
@@ -40,8 +40,8 @@ def aws_config(instance_type)
     aws.region = "eu-west-1"
     aws.availability_zone = "eu-west-1c"
     aws.instance_type = instance_type
-    aws.security_groups = [ "mccloud", "http" ]
-    aws.keypair_name = "mccloud-key-tlc"
+    aws.security_groups = [ "ssh", "http" ]
+    aws.keypair_name = "chef-tlc-insecure-key"
   end
 end
 
