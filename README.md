@@ -36,10 +36,10 @@ Or install it yourself as:
 You need Vagrant 1.2.x and the following plugins for the [sample Vagrantfile](https://github.com/tknerr/chef-tlc-workflow/tree/master/test/vagrant-1.x-bootstrap/Vagrantfile) to work:
 
 ```
-vagrant plugin install vagrant-aws --plugin-version 0.2.2`
-vagrant plugin install vagrant-managed-servers --plugin-version 0.1.0`
-vagrant plugin install vagrant-omnibus --plugin-version 1.0.2`
-vagrant plugin install vagrant-cachier --plugin-version 0.1.0`
+vagrant plugin install vagrant-aws --plugin-version 0.2.2
+vagrant plugin install vagrant-managed-servers --plugin-version 0.1.0
+vagrant plugin install vagrant-omnibus --plugin-version 1.0.2
+vagrant plugin install vagrant-cachier --plugin-version 0.1.0
 ```
 
 ## Usage
@@ -69,15 +69,15 @@ Installing apt (1.3.2)
 Installing sample-app (0.1.0)
 ```
 
-See, the dependencies are now resolved per top-level cookbook separately:
+See, the dependencies are now resolved per top-level cookbook (i.e. `sample-app-0.1.0` in this case) separately:
 ```
 $ ls -la cookbooks/sample-app-0.1.0
 total 12
-drwxr-xr-x 5 tkn Administrators    0 Jun 11 17:44 .
-drwxr-xr-x 3 tkn Administrators    0 Jun 11 17:44 ..
-drwxr-xr-x 7 tkn Administrators 4096 Jun 11 17:44 apache2
-drwxr-xr-x 6 tkn Administrators 4096 Jun 11 17:44 apt
-drwxr-xr-x 6 tkn Administrators 4096 Jun 11 17:44 sample-app
+drwxr-xr-x 5 tkn tkn    0 Jun 11 17:44 .
+drwxr-xr-x 3 tkn tkn    0 Jun 11 17:44 ..
+drwxr-xr-x 7 tkn tkn 4096 Jun 11 17:44 apache2
+drwxr-xr-x 6 tkn tkn 4096 Jun 11 17:44 apt
+drwxr-xr-x 6 tkn tkn 4096 Jun 11 17:44 sample-app
 ```
 
 Deploy to VirtualBox:
