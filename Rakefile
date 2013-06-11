@@ -18,15 +18,15 @@ task :test_vagrant_esx_bootstrap do
 
   begin
     # simulate esx-like environment using vagrant and a bare-os basebox
-    sh "vagrant destroy esx_like_vm -f"
-    sh "vagrant up esx_like_vm" do |ok, res|
+    run_cmd_esx "vagrant destroy esx_like_vm -f"
+    run_cmd_esx "vagrant up esx_like_vm" do |ok, res|
       puts "ok: #{ok}\nres: #{res}" # ignore vagrant error for bare-os vm
     end
 
     test_vagrant_commands(:esx)
   ensure
     # cleanup
-    sh "vagrant destroy esx_like_vm -f"
+    run_cmd_esx "vagrant destroy esx_like_vm -f"
   end
 end
 
@@ -80,4 +80,8 @@ end
 
 def run_cmd(command, cwd = "test/vagrant-1.x-bootstrap")
   sh "cd #{cwd} && #{command}"
+end
+
+def run_cmd_esx(command)
+  run_cmd command, "test/esx_fake"
 end
