@@ -28,17 +28,12 @@ Gem::Specification.new do |gem|
   # so that the only dependency one needs in the `Gemfile` is `chef-tlc-workflow`
   #
 
-  # for interaction with nodes in local/esx/ec2 environments
-  gem.add_dependency 'knife-solo', '0.3.0.pre4'
-  gem.add_dependency 'mccloud', '0.0.19'
-  
   # testing related
   gem.add_dependency 'foodcritic', '1.7.0'
   gem.add_dependency 'chefspec', '0.9.0'
   gem.add_dependency 'fauxhai', '0.1.1'
 
   # others
-  gem.add_dependency 'rake', '0.9.6'
   gem.add_dependency 'sahara', '0.0.13'
   gem.add_dependency 'knife-solo_data_bag', '0.3.1'
 
