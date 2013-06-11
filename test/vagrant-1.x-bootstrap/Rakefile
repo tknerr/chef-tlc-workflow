@@ -1,0 +1,13 @@
+require 'bundler/setup'
+require 'chef-workflow/tasks/tlc/deps'
+
+desc "resolve application cookbook with all its dependencies"
+task :resolve_deps, [:app_cookbook] do |t, args|
+  Rake::Task["tlc:deps:resolve_app_cookbook"].invoke(args[:app_cookbook])
+end
+
+
+desc "resolve sample-app"
+task :resolve_sample_app do
+  Rake::Task["resolve_deps"].invoke("sample-app@0.1.0")
+end
