@@ -1,6 +1,4 @@
 source :rubygems
 
-source 'https://gems.gemfury.com/psBbdHx94zqZrvxpiVmm/' # librarian-0.0.26.2
-
 gem "chef-tlc-workflow", "0.2.0.dev",
   :path => "#{File.dirname(__FILE__)}/../../../chef-tlc-workflow"
