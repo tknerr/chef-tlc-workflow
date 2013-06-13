@@ -17,11 +17,11 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  # lock down dependencies
+  # lock down direct dependencies
   #
-  gem.add_dependency 'chef-workflow-tasklib', '0.2.2'
-  gem.add_dependency 'chef', '10.18.2'
+  gem.add_dependency 'chef', '11.4.4'
   gem.add_dependency 'librarian-chef', '0.0.1'
+  gem.add_dependency 'rake'
 
   #
   # further dependencies that are not `require`d here but we pull in for convenience
@@ -29,13 +29,12 @@ Gem::Specification.new do |gem|
   #
 
   # testing related
-  gem.add_dependency 'foodcritic', '1.7.0'
-  gem.add_dependency 'chefspec', '0.9.0'
-  gem.add_dependency 'fauxhai', '0.1.1'
+  gem.add_dependency 'foodcritic', '2.0.1'
+  gem.add_dependency 'chefspec', '1.3.1'
+  gem.add_dependency 'fauxhai', '1.1.1'
 
   # others
-  gem.add_dependency 'sahara', '0.0.13'
-  gem.add_dependency 'knife-solo_data_bag', '0.3.1'
+  gem.add_dependency 'knife-solo_data_bag', '0.4.0'
 
   # need these on windows only
   if RUBY_PLATFORM =~ /mswin|mingw/
