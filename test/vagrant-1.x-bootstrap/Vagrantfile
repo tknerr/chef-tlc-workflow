@@ -65,7 +65,7 @@ end
 Vagrant::configure("2") do |config|
 
   # required vagrant plugins
-  config.plugin.depend 'vagrant-aws', '0.2.2'
+  config.plugin.depend 'vagrant-aws', '0.2.2.rsyncfix'
   config.plugin.depend 'vagrant-managed-servers', '0.1.0'
   config.plugin.depend 'vagrant-omnibus', '1.0.2'
   config.plugin.depend 'vagrant-cachier', '0.1.0'
