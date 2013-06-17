@@ -1,4 +1,10 @@
 
+# [0.2.0] from 06/11/2013
+
+ * update to Vagrant from 1.0 to 1.2
+ * yank mccloud and knife-solo in favor of Vagrant 1.2 with [aws](https://github.com/mitchellh/vagrant-aws) and [managed-servers](https://github.com/tknerr/vagrant-managed-servers) provider
+ * update examples in ```test/``` directory for Vagrant 1.2
+
 # [0.1.3] from 05/30/2013
 
  * relax version constraint on vagrant gem so that both 1.0.5 and 1.0.5.1 ([windows fixes](https://github.com/mitchellh/vagrant/issues/247)) can be used 
