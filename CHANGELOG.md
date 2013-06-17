@@ -1,9 +1,16 @@
 
+# [0.3.0] 
+
+ * update to Chef 11 and yank chef-workflow-tasklib (GH-2)
+ * replace librarian-chef with [berkshelf](http://berkshelf.com/) (GH-3)
+  * update `test/sample-app`: add `Berksfile`, add `Vagrantfile` with [vagrant-berkshelf](https://github.com/riotgames/vagrant-berkshelf) plugin 
+  * code cleanup, lots of code not needed anymore
+
 # [0.2.0] from 06/11/2013
 
- * update to Vagrant from 1.0 to 1.2
- * yank mccloud and knife-solo in favor of Vagrant 1.2 with [aws](https://github.com/mitchellh/vagrant-aws) and [managed-servers](https://github.com/tknerr/vagrant-managed-servers) provider
- * update examples in ```test/``` directory for Vagrant 1.2
+ * update to Vagrant from 1.0 to 1.2 (GH-1)
+  * replace mccloud and knife-solo with [vagrant-aws](https://github.com/mitchellh/vagrant-aws) and [vagrant-managed-servers](https://github.com/tknerr/vagrant-managed-servers) providers
+  * update `Vagrantfile`s in `test/` directory for Vagrant 1.2
 
 # [0.1.3] from 05/30/2013
 
