@@ -11,7 +11,7 @@ task :test => [
 # TODO:
 # * rewrite as cucumber feature
 # * check for apache default page
-# * more realistic scenario: e.g. scaffold infra, create Cheffile and node.json on the fly, etc...
+# * more realistic scenario: e.g. scaffold infrastructure and app cookbook
 #
 desc "tests bootstrapping in an esx-like environment via vagrant-managed-servers provider"
 task :test_vagrant_esx_bootstrap do

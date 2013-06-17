@@ -22,13 +22,13 @@ The `chef-tlc-workflow` makes our workflow for developing with Chef explict by a
      * create
      * release
      * resolve_deps
-     * validate (Cheffile in .gitignore)
+     * validate (Berksfile in .gitignore)
      * test (u.a. => test:converge, ggf. chef-workflow testlib?)
     * app
      * create
      * release
      * resolve_deps
-     * validate (=> u.a. deps:check, Cheffile nicht in .gitignore)
+     * validate (=> u.a. deps:check, Berksfile nicht in .gitignore)
      * test (was auch immer das heisst)
     * infra
      * create
@@ -71,7 +71,7 @@ Currently available are these tasks.
 The `deps` namespace embodies the workflow concerning cookbook dependency management
   
  * `tlc:deps:resolve` - resolve dependencies using [librarian](https://github.com/applicationsonline/librarian)
- * `tlc:deps:check` - check if dependencies in `metadata.rb` and `Cheffile` are consistent
+ * `tlc:deps:check` - check if dependencies in `metadata.rb` and `Berksfile` are consistent
 
 #### Cookbook Testing
 
