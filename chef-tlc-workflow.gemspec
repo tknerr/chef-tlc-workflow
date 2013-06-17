@@ -20,7 +20,7 @@ Gem::Specification.new do |gem|
   # lock down direct dependencies
   #
   gem.add_dependency 'chef', '11.4.4'
-  gem.add_dependency 'librarian-chef', '0.0.1'
+  gem.add_dependency 'berkshelf', '2.0.3'
   gem.add_dependency 'rake'
 
   #

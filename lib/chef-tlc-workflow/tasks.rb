@@ -5,28 +5,25 @@ namespace :tlc do
     require 'chef-tlc-workflow/helpers'
 
     #
-    # resolve dependencies using librarian
+    # resolve dependencies using berkshelf
     #
     task :resolve do
-      require 'fileutils'
-      FileUtils.rm_rf('Cheffile.lock')
-      sh "librarian-chef clean"
-      sh "librarian-chef install"
+      sh "berks install"
     end
 
     #
-    # check if dependencies in metadata.rb and Cheffile are consistent
+    # check if dependencies in metadata.rb and Berksfile are consistent
     #
     task :check do
       errors = []
       metadata_deps = ChefTLCWorkflow::Helpers::read_metadata_deps
-      resolved_cheffile_deps = ChefTLCWorkflow::Helpers::read_and_resolve_cheffile_deps
-      resolved_cheffile_deps.each do | dep, version |
+      resolved_deps = ChefTLCWorkflow::Helpers::read_berkshelf_deps
+      resolved_deps.each do | dep, version |
         if metadata_deps.has_key?(dep)
           metadata_ver = ::Gem::Requirement.new(metadata_deps[dep])
-          cheffile_ver = ::Gem::Requirement.new(version)
-          if metadata_ver != cheffile_ver
-            errors << "dependency version for '#{dep}' is inconsistent: '#{metadata_ver}' vs '#{cheffile_ver}'!"
+          berkshelf_ver = ::Gem::Requirement.new(version)
+          if metadata_ver != berkshelf_ver
+            errors << "dependency version for '#{dep}' is inconsistent: '#{metadata_ver}' vs '#{berkshelf_ver}'!"
           end
         else
           errors << "dependency '#{dep}' is missing in metadata.rb!"
@@ -48,11 +45,11 @@ namespace :tlc do
 
     #
     # resolve an application cookbook with all it's dependenices 
-    # whilst honoring the application cookbook's Cheffile:
+    # whilst honoring the application cookbook's Berksfile:
     #
     # 1. clone (:git,:ref) or copy (:path) the app cookbook to './tmp'
     # 2. resolve dependencies (inlcuding app cookbook itself) as defined in
-    #    the app cookbook's Cheffile to './cookbooks/<app-cookbook-name>-<version>'
+    #    the app cookbook's Berksfile to './cookbooks/<app-cookbook-name>-<version>'
     #
     #
     def self.resolve_app_cookbook(app_cookbook)
@@ -80,17 +77,10 @@ namespace :tlc do
       end
 
       # resolve deps from tmp_dir into target_dir
-      fail "No Cheffile found in '#{tmp_dir}'" unless File.exist? "#{tmp_dir}/Cheffile"
+      fail "No Berksfile found in '#{tmp_dir}'" unless File.exist? "#{tmp_dir}/Berksfile"
       FileUtils.rm_rf target_dir
       FileUtils.mkdir_p target_dir
-      sh "cd #{tmp_dir} && librarian-chef install --path #{File.absolute_path(target_dir)}"
-
-      # copy application cookbook itself if it was not reference in Cheffile using `:path => '.'`
-      app_cookbook_in_targetdir = "#{target_dir}/#{name}"
-      unless File.exist? app_cookbook_in_targetdir
-        FileUtils.mkdir_p app_cookbook_in_targetdir
-        FileUtils.cp_r Dir.glob("#{tmp_dir}/*"), app_cookbook_in_targetdir
-      end
+      sh "cd #{tmp_dir} && berks install --path #{File.absolute_path(target_dir)}"
     end
 
     def self.cookbook_files_to_copy(path)
