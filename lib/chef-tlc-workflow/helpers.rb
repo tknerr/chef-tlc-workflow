@@ -47,6 +47,7 @@ module ChefTLCWorkflow
     #
     def self.read_app_cookbooks(yml_file, name = nil, version = nil)
       # TODO: validate format
+      require 'yaml'
       app_cookbooks = YAML.load_file yml_file
       app_cookbooks.select! { |ac| ac['name'] == name } if name
       app_cookbooks.select! { |ac| ac['version'] == version } if version
