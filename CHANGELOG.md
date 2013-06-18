@@ -1,5 +1,5 @@
 
-# [0.3.0] 
+# [0.3.0] from 06/18/2013
 
  * update to Chef 11 and yank chef-workflow-tasklib (GH-2)
  * replace librarian-chef with [berkshelf](http://berkshelf.com/) (GH-3)
