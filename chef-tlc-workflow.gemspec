@@ -23,6 +23,9 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'berkshelf', '2.0.4'
   gem.add_dependency 'rake'
 
+  # help bundler resolve the json conflict (see RiotGames/berkshelf#676)
+  gem.add_dependency 'json', '1.7.7'
+
   #
   # further dependencies that are not `require`d here but we pull in for convenience
   # so that the only dependency one needs in the `Gemfile` is `chef-tlc-workflow`
